@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Test Series</title>
+
+    <!-- Add Bootstrap CSS for easy styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Add Chart.js for pie chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        .test-series-section { padding: 50px 0; }
+        .test-card { margin-bottom: 20px; }
+        .hidden { display: none; }
+        .timer { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 20px; }
+        .question { margin-bottom: 20px; }
+        #scoreSection { padding: 20px 0; }
+        #scoreChartContainer { 
+            max-width: 250px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background-color: #f8f9fa; 
+            border-radius: 10px; 
+        }
+        .locked { opacity: 0.5; pointer-events: none; }
+        #testIntro {
+    background: linear-gradient(135deg, #ff6ac1, #7386ff); /* Pink to Blue gradient */
+    padding: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar with Test Series dropdown -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="indexone.html">CodeQuest</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+               
+                <li class="nav-item dropdown">
+                   
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Test Series
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="java-test.html">Java</a>
+                        <a class="dropdown-item" href="python-test.html">Python</a>
+                        <a class="dropdown-item" href="cpp-test.html">C++</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Python Test Section -->
+    <div class="container test-series-section" id="testIntro">
+        <h2 class="text-center">C++ Test Series</h2>
+        <p class="text-center">Choose your level and start testing your C++ knowledge!</p>
+        <div class="row">
+            <!-- Basic Level Card -->
+            <div class="col-md-4 test-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Basic Level</h5>
+                        <p class="card-text">10 questions covering the basics of C++ programming.</p>
+                        <button onclick="startTest('basic')" class="btn btn-primary">Start Test</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Level Card (Locked by default) -->
+            <div class="col-md-4 test-card">
+                <div class="card locked" id="intermediateCard">
+                    <div class="card-body">
+                        <h5 class="card-title">Intermediate Level</h5>
+                        <p class="card-text">10 questions covering intermediate-level C++ concepts.</p>
+                        <button onclick="startTest('intermediate')" class="btn btn-primary">Start Test</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Level Card (Locked by default) -->
+            <div class="col-md-4 test-card">
+                <div class="card locked" id="advancedCard">
+                    <div class="card-body">
+                        <h5 class="card-title">Advanced Level</h5>
+                        <p class="card-text">10 questions covering advanced-level C++ topics.</p>
+                        <button onclick="startTest('advanced')" class="btn btn-primary">Start Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer and Questions Section -->
+    <div class="container hidden" id="testSection">
+        <h2 class="text-center" id="testLevelTitle">C++ Test</h2>
+        <div class="timer" id="timer">10:00</div>
+        <div id="questions">
+            <!-- Questions will be dynamically added here -->
+        </div>
+        <button onclick="submitTest()" class="btn btn-success btn-block">Submit Test</button>
+    </div>
+
+    <!-- Score Section -->
+    <div class="container hidden" id="scoreSection">
+        <h2 class="text-center">Test Results</h2>
+        <p class="text-center">Correct Answers: <span id="correctAnswers"></span></p>
+        <p class="text-center">Incorrect Answers: <span id="incorrectAnswers"></span></p>
+
+        <!-- Score chart container -->
+        <div id="scoreChartContainer">
+            <canvas id="scoreChart" width="250" height="250"></canvas>
+        </div>
+
+        <div class="text-center mt-4">
+            <button id="retryBtn" onclick="retryTest()" class="btn btn-warning">Retry</button>
+            <button id="nextLevelBtn" onclick="goToNextLevel()" class="btn btn-primary hidden">Go to Next Level</button>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery for dropdown functionality -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const questions = {
+            basic: [
+                { question: "What is C++?", options: ["A programming language", "A type of coffee", "An operating system", "A game engine"], correct: 0 },
+                { question: "Who developed C++?", options: ["Bjarne Stroustrup", "James Gosling", "Dennis Ritchie", "Guido van Rossum"], correct: 0 },
+                { question: "Which of the following is a valid C++ variable declaration?", options: ["int 1x = 10;", "int x = 10;", "1x = int 10;", "int x; x = 10;"], correct: 1 },
+                { question: "Which of these is used for comments in C++?", options: ["// comment", "# comment", "/* comment */", "Both A and C"], correct: 3 },
+                { question: "What is the correct syntax to include a header file?", options: ["#include <iostream>", "include <iostream>", "#include iostream", "iostream.h"], correct: 0 },
+                { question: "What does 'cin' stand for in C++?", options: ["Console input", "C input", "C internal", "None of the above"], correct: 0 },
+                { question: "What is the output of the following code: cout << 5 + 3 * 2;", options: ["11", "16", "13", "8"], correct: 2 },
+                { question: "What is a class in C++?", options: ["A blueprint for creating objects", "A type of variable", "A function type", "None of the above"], correct: 0 },
+                { question: "Which operator is used for inheritance in C++?", options: ["::", "->", ":", "is"], correct: 0 },
+                { question: "What does the 'new' keyword do?", options: ["Allocates memory", "Creates a variable", "Defines a class", "None of the above"], correct: 0 }
+            ],
+            intermediate: [
+                { question: "What is polymorphism in C++?", options: ["The ability of a function to process different data types", "The ability to overload operators", "Both A and B", "None of the above"], correct: 2 },
+                { question: "What is a pure virtual function?", options: ["A function with no definition", "A function that cannot be called", "A function with a default argument", "A function that returns nothing"], correct: 0 },
+                { question: "Which keyword is used to prevent a class from being inherited?", options: ["final", "virtual", "private", "sealed"], correct: 0 },
+                { question: "Which of the following is the correct way to declare a pointer?", options: ["int ptr;", "int *ptr;", "int &ptr;", "pointer int ptr;"], correct: 1 },
+                { question: "What is the purpose of the 'this' pointer?", options: ["To refer to the current object", "To refer to the parent class", "To refer to the base class", "None of the above"], correct: 0 },
+                { question: "What is the default access modifier for class members in C++?", options: ["public", "private", "protected", "friend"], correct: 1 },
+                { question: "Which STL container is implemented as a doubly linked list?", options: ["vector", "list", "set", "map"], correct: 1 },
+                { question: "What does the 'static' keyword do?", options: ["Makes a variable local to the function", "Allocates memory for a variable", "Prevents variable from being destroyed", "None of the above"], correct: 2 },
+                { question: "What is the output of the following code: int a = 10; cout << a++;", options: ["10", "11", "Error", "None of the above"], correct: 0 },
+                { question: "Which of the following is a valid type of polymorphism?", options: ["Compile-time polymorphism", "Run-time polymorphism", "Both A and B", "None of the above"], correct: 2 }
+            ],
+            advanced: [
+                { question: "What is a template in C++?", options: ["A blueprint for creating classes", "A function that takes a class as an argument", "A generic class or function", "None of the above"], correct: 2 },
+                { question: "What is RAII in C++?", options: ["Resource Acquisition Is Initialization", "Rapid Application Interface Implementation", "Return Argument Interface Identifier", "None of the above"], correct: 0 },
+                { question: "What does the 'override' keyword do?", options: ["Defines a new function", "Replaces a base class function", "Defines a virtual function", "None of the above"], correct: 1 },
+                { question: "What is the purpose of the 'friend' keyword?", options: ["To grant access to private members of a class", "To declare global variables", "To create a new namespace", "None of the above"], correct: 0 },
+                { question: "What are lambda expressions in C++?", options: ["Anonymous functions", "Function templates", "Overloaded operators", "None of the above"], correct: 0 },
+                { question: "What is the significance of 'nullptr' in C++?", options: ["Represents a null pointer", "Represents an undefined variable", "Represents an empty class", "None of the above"], correct: 0 },
+                { question: "Which keyword is used to declare a destructor in C++?", options: ["~", "destroy", "delete", "dispose"], correct: 0 },
+                { question: "What is an iterator in C++?", options: ["A pointer to an element in a container", "A reference to a container", "A function that returns a container", "None of the above"], correct: 0 },
+                { question: "What is a virtual destructor?", options: ["A destructor that can be overridden", "A destructor that cannot be called", "A destructor that allocates memory", "None of the above"], correct: 0 },
+                { question: "What does the 'const' keyword signify?", options: ["The variable is constant and cannot be changed", "The variable can be changed", "The variable is a pointer", "None of the above"], correct: 0 }
+            ]
+        };
+        let timer;
+        let timeLeft = 10 * 60; // 10 minutes
+        let currentLevel = '';
+        let correctCount = 0;
+        let totalQuestions = 60;
+
+        function startTest(level) {
+            currentLevel = level;
+            document.getElementById('testIntro').classList.add('hidden');
+            document.getElementById('testSection').classList.remove('hidden');
+            document.getElementById('testLevelTitle').innerText = `${capitalize(level)} Level Test`;
+
+            const questionContainer = document.getElementById('questions');
+            questionContainer.innerHTML = '';
+            const levelQuestions = questions[level];
+            totalQuestions = levelQuestions.length;
+            levelQuestions.forEach((q, index) => {
+                questionContainer.innerHTML += `
+                    <div class="question">
+                        <p>${index + 1}. ${q.question}</p>
+                        ${q.options.map((opt, i) => `
+                            <div>
+                                <input type="radio" name="question${index}" value="${i}" /> ${opt}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById('timer').innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitTest();
+                }
+            }, 1000);
+        }
+
+        function submitTest() {
+            clearInterval(timer);
+
+            const levelQuestions = questions[currentLevel];
+            correctCount = 0;
+
+            levelQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption && parseInt(selectedOption.value) === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const incorrectCount = totalQuestions - correctCount;
+
+            document.getElementById('correctAnswers').innerText = correctCount;
+            document.getElementById('incorrectAnswers').innerText = incorrectCount;
+            document.getElementById('testSection').classList.add('hidden');
+            document.getElementById('scoreSection').classList.remove('hidden');
+
+            const ctx = document.getElementById('scoreChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Correct', 'Incorrect'],
+                    datasets: [{
+                        data: [correctCount, incorrectCount],
+                        backgroundColor: ['#28a745', '#dc3545'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // This allows resizing the chart properly
+                }
+            });
+
+            if (correctCount >= 8) {
+                document.getElementById('nextLevelBtn').classList.remove('hidden');
+            }
+        }
+
+        function goToNextLevel() {
+            if (currentLevel === 'basic') {
+                document.getElementById('intermediateCard').classList.remove('locked');
+            } else if (currentLevel === 'intermediate') {
+                document.getElementById('advancedCard').classList.remove('locked');
+            }
+            document.getElementById('scoreSection').classList.add('hidden');
+            document.getElementById('testIntro').classList.remove('hidden');
+        }
+
+        function retryTest() {
+            timeLeft = 10 * 60; // Reset to 10 minutes
+            document.getElementById('scoreSection').classList.add('hidden');
+            document.getElementById('testIntro').classList.remove('hidden');
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    </script>
+</body>
+</html>

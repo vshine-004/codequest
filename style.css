@@ -1,0 +1,674 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    
+}
+
+body {
+    font-size: 16px;
+   
+}
+
+/* Navbar when in the hero section */
+.navbar {
+    position: fixed; /* Fixes the navbar at the top */
+    top: 0; /* Aligns it to the top */
+    left: 0; /* Aligns it to the left */
+    width: 100%; /* Makes the navbar full width */
+    z-index: 1000; /* Ensures it stays above other content */
+     /* Navbar background color */
+    padding: 10px 0; /* Padding for the navbar */
+    background-image: url('Images/hero2.png');
+}
+
+
+
+.navbar a.active {
+    background-color: #00bf63; /* Background color for active link */
+    border-radius: 5px; /* Rounded corners for active link */
+}
+.dropdown-menu li{
+    color: black !important;
+}
+
+
+
+.main-hero{
+    background-image: url(Images/hero2.png);
+    background-size: cover;
+    background-size: cover;
+    position: relative; /* Ensure hero is relative so cards can overlap */
+    padding-bottom: 0; /* Adjust to remove extra padding if needed */
+    margin-top: 70px;
+    
+}
+
+
+.intro-img {
+    max-width: 550px;
+    height: auto; /* Make height auto for responsive scaling */
+}
+
+/* Reduced margin to minimize gap between navbar and main content */
+.hero {
+    margin-top: 0px!important;
+    height: 480px;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center ;
+    align-items: start !important;
+   
+}
+
+.abt-btns {
+    position: relative;
+    z-index: 1; /* Ensure it's on top */
+    margin-top: -30px; /* Adjust this value based on how much you want to overlap */
+    width: 90%; /* Ensures it takes up similar width to the hero section */
+    max-width: 1100px; /* Adjust max width to match your design */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white; /* To give the cards a clear background if needed */
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Gives a nice shadow effect */
+    border-radius: 15px; /* Rounded corners for a modern look */
+}
+
+/* Styling individual cards */
+.abt-btns .d-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.abt-btns img {
+    margin-bottom: 10px;
+}
+
+.abt-btns b {
+    font-size: 24px; /* Bold numbers */
+    display: block;
+}
+
+.abt-btns div div {
+    font-size: 16px; /* Description text */
+    color: #666;
+}
+
+/* Adjusting the hero content for proper alignment */
+.hero .container {
+    max-width: 90%; /* Ensures consistency with the width of the cards */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero h1, .hero p {
+    color: white; /* Assuming a dark background on the hero section */
+}
+
+.hero img.intro-img {
+    width: 100%;
+    max-width: 500px; /* Control image size */
+}
+
+.text-center {
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px; /* Space between paragraphs */
+}
+
+.feature-content {
+    display: flex;
+    align-items: flex-start; /* Align items at the start */
+    margin-bottom: 20px; /* Space between feature rows */
+}
+
+.feature-icon {
+    width: 60px; /* Adjust icon size */
+    height: 60px; /* Adjust icon size */
+    margin-right: 15px; /* Space between icon and text */
+}
+
+h3 {
+    font-size: 1.5rem; /* Font size for the heading */
+    color: #444;
+    margin: 0; /* Remove margin for heading */
+}
+
+p {
+    font-size: 1rem; /* Font size for the paragraph */
+    color: #666;
+    margin-top: 5px; /* Add margin on top of paragraph */
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    h3 {
+        font-size: 1.25rem; /* Smaller heading on mobile */
+    }
+    .feature-icon {
+        width: 50px; /* Smaller icon on mobile */
+        height: 50px; /* Smaller icon on mobile */
+    }
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    h3 {
+        font-size: 1.25rem; /* Smaller heading on mobile */
+    }
+    .feature-icon {
+        width: 60px;
+        height: 60px; /* Smaller icon on mobile */
+    }
+}
+
+
+/* Contact Section */
+.contact-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Reduced height */
+    background: linear-gradient(135deg, #ff6ac1, #7386ff); /* Pink to Blue gradient */
+    padding: 20px 0; /* Reduced padding */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 900px; /* Reduced max width */
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Left Side: Text Content */
+.left-side {
+    color: white;
+    padding-right: 15px; /* Reduced padding */
+    flex-basis: 45%; /* Adjusted to give more space to the form */
+}
+
+.left-side h1 {
+    font-size: 2rem; /* Reduced font size */
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+.left-side p {
+    font-size: 1rem; /* Reduced font size */
+    line-height: 1.4; /* Adjusted line height */
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+.left-side a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Right Side: Contact Form */
+.right-side {
+    background: #fff;
+    padding: 20px; /* Reduced padding */
+    border-radius: 8px; /* Slightly smaller corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slightly smaller shadow */
+    flex-basis: 45%; /* Adjusted width */
+}
+
+.contact-form h2 {
+    font-size: 1.5rem; /* Reduced font size */
+    margin-bottom: 15px; /* Reduced margin */
+    text-align: center;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 8px; /* Reduced margin */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9rem; /* Slightly smaller font size */
+}
+
+.contact-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px; /* Reduced button size */
+    font-size: 0.9rem; /* Slightly smaller font size */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+
+
+@media (max-width: 768px) {
+    .left-side, .right-side {
+        flex-basis: 100%;
+        padding-right: 0;
+    }
+
+    .contact-form {
+        padding: 15px; /* Reduced padding for smaller screens */
+    }
+}   
+
+/* Testimonial Section */
+.testimonial-section {
+    padding: 40px 0; /* Reduced padding */
+     /* Lighter background for a fresh look */
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem; /* Slightly smaller font size */
+    margin-bottom: 30px; /* Reduced margin */
+    color: #333;
+}
+
+.testimonials-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Reduced gap */
+    max-width: 800px; /* Reduced max width */
+    margin: 0 auto;
+}
+
+.testimonial {
+    display: flex;
+    align-items: flex-start; /* Align images and text to the top */
+    justify-content: center; /* Center items */
+    width: 100%;
+    padding: 15px; /* Reduced padding */
+    background: white;
+    border-radius: 8px; /* Smaller radius */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    transition: transform 0.3s; /* Add hover effect */
+}
+
+.testimonial:hover {
+    transform: translateY(-3px); /* Slight hover effect */
+}
+
+.testimonial-text {
+    flex: 1; /* Use flex property for better responsiveness */
+    padding-left: 10px; /* Reduced left padding */
+}
+
+.testimonial-text p {
+    font-size: 1rem; /* Smaller font size */
+    line-height: 1.4; /* Adjusted line height */
+    color: #555;
+}
+
+.testimonial-text h4 {
+    margin-top: 5px; /* Reduced margin */
+    font-size: 1rem; /* Smaller font size */
+    color: #007bff;
+    font-weight: 500; /* Lighter weight */
+}
+
+.testimonial-image {
+    padding: 0 10px; /* Reduced padding */
+}
+
+.testimonial-image img {
+    width: 80px; /* Smaller image size */
+    height: 80px; /* Smaller image size */
+    border-radius: 50%;
+    border: 2px solid #007bff; /* Thinner border */
+}
+
+@media (max-width: 768px) {
+    .testimonials-container {
+        flex-direction: column; /* Column layout for mobile */
+    }
+
+    .testimonial {
+        flex-direction: row; /* Keep row layout on mobile */
+        text-align: center; /* Center text */
+    }
+
+    .testimonial-image {
+        margin-bottom: 10px; /* Space below image */
+    }
+}
+/* Main content grows to take the available space */
+main {
+    flex: 1;
+}
+
+/* Footer styles */
+.footer-section {
+    background-image: url('Images/hero2.png');
+    padding: 40px 0;
+    color: #fff;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-column {
+    flex-basis: 22%;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #ffdd59;
+}
+
+.footer-column p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.footer-column ul li i {
+    margin-right: 10px;
+}
+
+.footer-column ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: #ffdd59;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffdd59;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 15px 0;
+    /* background: #1a252f; */
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-column {
+        flex-basis: 45%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-column {
+        flex-basis: 100%;
+        margin-bottom: 30px;
+    }
+
+    .footer-container {
+        padding: 0 15px;
+    }
+}
+/* FAQ Section Styling */
+.faq-section {
+    
+    padding: 30px 0; /* Reduced padding */
+}
+
+.faq-section h2 {
+    font-size: 2rem; /* Title size */
+    font-weight: bold;
+    margin-bottom: 20px; /* Spacing below title */
+    text-align: center;
+}
+
+/* FAQ List */
+.faq-list {
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: space-between; /* Space out items */
+}
+
+/* FAQ Item */
+.faq-item {
+    background-color: transparent; /* No background color */
+    padding: 15px; /* Inner padding */
+    margin-bottom: 10px; /* Space between items */
+    flex: 1 1 48%; /* Two items per row with spacing */
+    border-bottom: 1px solid #ccc; /* Underline for separation */
+}
+
+/* Remove bottom border for the last item */
+.faq-item:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+.faq-question {
+    font-size: 1.1rem; /* Size for questions */
+    font-weight: bold; /* Bold for emphasis */
+    color: #333; /* Dark color for questions */
+    cursor: pointer; /* Pointer for hover effect */
+    margin-bottom: 5px; /* Space between question and answer */
+}
+
+.faq-answer {
+    font-size: 0.95rem; /* Size for answers */
+    color: #555; /* Lighter gray for answers */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .faq-section {
+        padding: 20px 0; /* Smaller padding on mobile */
+    }
+
+    .faq-section h2 {
+        font-size: 1.5rem; /* Smaller title size on mobile */
+    }
+
+    .faq-item {
+        flex: 1 1 100%; /* Full width on smaller screens */
+    }
+}
+/* How We Help Section Styling */
+.how-we-help-section {
+   
+    padding: 30px 0; /* Reduced padding */
+}
+
+.section-title {
+    font-size: 2rem; /* Title size */
+    font-weight: bold;
+    margin-bottom: 20px; /* Spacing below title */
+}
+
+/* Feature Box */
+.feature-box {
+    margin-bottom: 20px; /* Space between feature boxes */
+    text-align: center; /* Center the content */
+}
+
+.feature-content {
+    padding: 15px; /* Inner padding */
+    transition: transform 0.3s ease; /* Transition effect */
+}
+
+.feature-content:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.feature-icon {
+    width: 80px; /* Adjust icon size */
+    height: 80px; /* Keep icons consistent */
+    margin-bottom: 10px; /* Space below the icon */
+}
+
+/* Feature Title */
+.feature-content h3 {
+    font-size: 1.25rem; /* Size for feature titles */
+    font-weight: bold; /* Bold for emphasis */
+    color: #333; /* Dark color for titles */
+    margin-bottom: 10px; /* Space between title and paragraph */
+}
+
+/* Feature Description */
+.feature-content p {
+    color: #555; /* Lighter gray for descriptions */
+    font-size: 0.95rem; /* Size for descriptions */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .how-we-help-section {
+        padding: 20px 0; /* Smaller padding on mobile */
+    }
+
+    .section-title {
+        font-size: 1.5rem; /* Smaller title size on mobile */
+    }
+}
+#featured-test-series {
+    background-color: #f8f9fa;
+    padding: 3rem;
+}
+
+.test-series-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.custom-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 1rem;
+    text-align: center;
+}
+
+.category {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.rating {
+    font-size: 0.9rem;
+}
+
+.stars {
+    color: #ffcc00;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.custom-button {
+    display: block;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}

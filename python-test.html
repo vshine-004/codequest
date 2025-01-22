@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Test Series</title>
+
+    <!-- Add Bootstrap CSS for easy styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Add Chart.js for pie chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        .test-series-section { padding: 50px 0; }
+        .test-card { margin-bottom: 20px; }
+        .hidden { display: none; }
+        .timer { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 20px; }
+        .question { margin-bottom: 20px; }
+        #scoreSection { padding: 20px 0; }
+        #scoreChartContainer { 
+            max-width: 250px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background-color: #f8f9fa; 
+            border-radius: 10px; 
+        }
+        .locked { opacity: 0.5; pointer-events: none; }
+        #testIntro {
+    background: linear-gradient(135deg, #ff6ac1, #7386ff); /* Pink to Blue gradient */
+    padding: 3rem;}
+    </style>
+</head>
+<body>
+
+    <!-- Navbar with Test Series dropdown -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="indexone.html">CodeQuest</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Test Series
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="java-test.html">Java</a>
+                        <a class="dropdown-item" href="python-test.html">Python</a>
+                        <a class="dropdown-item" href="cpp-test.html">C++</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Python Test Section -->
+    <div class="container test-series-section" id="testIntro">
+        <h2 class="text-center">Python Test Series</h2>
+        <p class="text-center">Choose your level and start testing your Python knowledge!</p>
+        <div class="row">
+            <!-- Basic Level Card -->
+            <div class="col-md-4 test-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Basic Level</h5>
+                        <p class="card-text">10 questions covering the basics of Python programming.</p>
+                        <button onclick="startTest('basic')" class="btn btn-primary">Start Test</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Level Card (Locked by default) -->
+            <div class="col-md-4 test-card">
+                <div class="card locked" id="intermediateCard">
+                    <div class="card-body">
+                        <h5 class="card-title">Intermediate Level</h5>
+                        <p class="card-text">10 questions covering intermediate-level Python concepts.</p>
+                        <button onclick="startTest('intermediate')" class="btn btn-primary">Start Test</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Level Card (Locked by default) -->
+            <div class="col-md-4 test-card">
+                <div class="card locked" id="advancedCard">
+                    <div class="card-body">
+                        <h5 class="card-title">Advanced Level</h5>
+                        <p class="card-text">10 questions covering advanced-level Python topics.</p>
+                        <button onclick="startTest('advanced')" class="btn btn-primary">Start Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer and Questions Section -->
+    <div class="container hidden" id="testSection">
+        <h2 class="text-center" id="testLevelTitle">Python Test</h2>
+        <div class="timer" id="timer">10:00</div>
+        <div id="questions">
+            <!-- Questions will be dynamically added here -->
+        </div>
+        <button onclick="submitTest()" class="btn btn-success btn-block">Submit Test</button>
+    </div>
+
+    <!-- Score Section -->
+    <div class="container hidden" id="scoreSection">
+        <h2 class="text-center">Test Results</h2>
+        <p class="text-center">Correct Answers: <span id="correctAnswers"></span></p>
+        <p class="text-center">Incorrect Answers: <span id="incorrectAnswers"></span></p>
+
+        <!-- Score chart container -->
+        <div id="scoreChartContainer">
+            <canvas id="scoreChart" width="250" height="250"></canvas>
+        </div>
+
+        <div class="text-center mt-4">
+            <button id="retryBtn" onclick="retryTest()" class="btn btn-warning">Retry</button>
+            <button id="nextLevelBtn" onclick="goToNextLevel()" class="btn btn-primary hidden">Go to Next Level</button>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery for dropdown functionality -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const questions = {
+            basic: [
+                { question: "What is Python?", options: ["A programming language", "A snake", "A movie", "A game"], correct: 0 },
+                { question: "Who created Python?", options: ["Guido van Rossum", "James Gosling", "Dennis Ritchie", "Bjarne Stroustrup"], correct: 0 },
+                { question: "What is the correct extension for Python files?", options: [".java", ".py", ".txt", ".pyt"], correct: 1 },
+                { question: "Which keyword is used to define a function in Python?", options: ["func", "function", "def", "declare"], correct: 2 },
+                { question: "How do you create a comment in Python?", options: ["//", "#", "/*", "<!-- -->"], correct: 1 },
+                { question: "Which of these is a Python data type?", options: ["int", "char", "float", "all of the above"], correct: 3 },
+                { question: "What does 'len()' do in Python?", options: ["Returns the length of a list", "Returns the length of a string", "Both A and B", "None of the above"], correct: 2 },
+                { question: "What is a correct syntax to output 'Hello World' in Python?", options: ["echo 'Hello World'", "p('Hello World')", "print('Hello World')", "System.out.println('Hello World')"], correct: 2 },
+                { question: "How do you declare a variable in Python?", options: ["var x = 10", "x = 10", "int x = 10", "x <- 10"], correct: 1 },
+                { question: "Which Python data structure is unordered and mutable?", options: ["List", "Tuple", "Dictionary", "Set"], correct: 3 }
+            ],
+            intermediate: [
+                { question: "What is a lambda function?", options: ["An anonymous function", "A function with no arguments", "A recursive function", "A named function"], correct: 0 },
+                { question: "What does 'self' represent in Python classes?", options: ["The current object", "The parent class", "The module", "None of the above"], correct: 0 },
+                { question: "Which module is used to work with regular expressions?", options: ["re", "regex", "express", "expression"], correct: 0 },
+                { question: "How do you import a module in Python?", options: ["module import", "import module", "load module", "require module"], correct: 1 },
+                { question: "Which of these is a valid list comprehension?", options: ["[x for x in range(5)]", "{x for x in range(5)}", "(x for x in range(5))", "x in range(5)"], correct: 0 },
+                { question: "Which method is used to add an item to a list?", options: ["add()", "append()", "insert()", "push()"], correct: 1 },
+                { question: "Which of these is a valid Python set?", options: ["{1, 2, 3}", "[1, 2, 3]", "(1, 2, 3)", "{'key': 'value'}"], correct: 0 },
+                { question: "What is the difference between '==' and 'is'?", options: ["No difference", "'==' checks value, 'is' checks identity", "'==' checks identity, 'is' checks value", "None of the above"], correct: 1 },
+                { question: "Which keyword is used to create a class in Python?", options: ["class", "object", "new", "def"], correct: 0 },
+                { question: "Which of the following is a Python immutable data type?", options: ["List", "Dictionary", "Tuple", "Set"], correct: 2 }
+            ],
+            advanced: [
+                { question: "What is a decorator in Python?", options: ["A function that takes another function as an argument", "A function that returns a lambda", "A function that creates a new class", "A built-in Python function"], correct: 0 },
+                { question: "Which module is used for multiprocessing in Python?", options: ["threading", "multiprocessing", "asyncio", "parallel"], correct: 1 },
+                { question: "What does the 'yield' keyword do?", options: ["Returns a generator object", "Stops execution of a function", "Pauses execution of a function", "None of the above"], correct: 2 },
+                { question: "What is the Global Interpreter Lock (GIL) in Python?", options: ["A lock that allows only one thread to execute at a time", "A lock that speeds up multithreading", "A lock that allows parallel execution", "None of the above"], correct: 0 },
+                { question: "What is a metaclass in Python?", options: ["A class that defines other classes", "A class that cannot be instantiated", "A class with no methods", "A class with private attributes"], correct: 0 },
+                { question: "Which module is used to work with dates and times?", options: ["datetime", "time", "calendar", "dates"], correct: 0 },
+                { question: "What is a context manager in Python?", options: ["A class that manages memory", "A class that manages resources", "A class that manages variables", "None of the above"], correct: 1 },
+                { question: "Which Python built-in function is used to filter elements from a list?", options: ["filter()", "map()", "reduce()", "sort()"], correct: 0 },
+                { question: "How do you create a virtual environment in Python?", options: ["virtualenv myenv", "python -m venv myenv", "python create venv", "venv create myenv"], correct: 1 },
+                { question: "What does the 'assert' statement do?", options: ["Tests a condition", "Raises an exception", "Executes a block of code", "Checks for syntax errors"], correct: 0 }
+            ]
+        };
+        let timer;
+        let timeLeft = 10 * 60; // 10 minutes
+        let currentLevel = '';
+        let correctCount = 0;
+        let totalQuestions = 60;
+
+        function startTest(level) {
+            currentLevel = level;
+            document.getElementById('testIntro').classList.add('hidden');
+            document.getElementById('testSection').classList.remove('hidden');
+            document.getElementById('testLevelTitle').innerText = `${capitalize(level)} Level Test`;
+
+            const questionContainer = document.getElementById('questions');
+            questionContainer.innerHTML = '';
+            const levelQuestions = questions[level];
+            totalQuestions = levelQuestions.length;
+            levelQuestions.forEach((q, index) => {
+                questionContainer.innerHTML += `
+                    <div class="question">
+                        <p>${index + 1}. ${q.question}</p>
+                        ${q.options.map((opt, i) => `
+                            <div>
+                                <input type="radio" name="question${index}" value="${i}" /> ${opt}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById('timer').innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitTest();
+                }
+            }, 1000);
+        }
+
+        function submitTest() {
+            clearInterval(timer);
+
+            const levelQuestions = questions[currentLevel];
+            correctCount = 0;
+
+            levelQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption && parseInt(selectedOption.value) === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const incorrectCount = totalQuestions - correctCount;
+
+            document.getElementById('correctAnswers').innerText = correctCount;
+            document.getElementById('incorrectAnswers').innerText = incorrectCount;
+            document.getElementById('testSection').classList.add('hidden');
+            document.getElementById('scoreSection').classList.remove('hidden');
+
+            const ctx = document.getElementById('scoreChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Correct', 'Incorrect'],
+                    datasets: [{
+                        data: [correctCount, incorrectCount],
+                        backgroundColor: ['#28a745', '#dc3545'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // This allows resizing the chart properly
+                }
+            });
+
+            if (correctCount >= 8) {
+                document.getElementById('nextLevelBtn').classList.remove('hidden');
+            }
+        }
+
+        function goToNextLevel() {
+            if (currentLevel === 'basic') {
+                document.getElementById('intermediateCard').classList.remove('locked');
+            } else if (currentLevel === 'intermediate') {
+                document.getElementById('advancedCard').classList.remove('locked');
+            }
+            document.getElementById('scoreSection').classList.add('hidden');
+            document.getElementById('testIntro').classList.remove('hidden');
+        }
+
+        function retryTest() {
+            timeLeft = 10 * 60; // Reset to 10 minutes
+            document.getElementById('scoreSection').classList.add('hidden');
+            document.getElementById('testIntro').classList.remove('hidden');
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+        </script>
+    </body>
+</html>
